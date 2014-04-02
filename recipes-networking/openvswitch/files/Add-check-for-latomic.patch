@@ -1,0 +1,39 @@
+Later versions of gcc on some architectures push atomic functions
+out into a separate atomic library; add a check to see when this
+is required and add it to LIBS if need be.
+
+Signed-off-by: James Page <james.page at ubuntu.com>
+---
+ configure.ac      | 1 +
+ m4/openvswitch.m4 | 6 ++++++
+ 2 files changed, 7 insertions(+)
+
+diff --git a/configure.ac b/configure.ac
+index 13d2d31..167cc71 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -83,6 +83,7 @@ OVS_CHECK_XENSERVER_VERSION
+ OVS_CHECK_GROFF
+ OVS_CHECK_GNU_MAKE
+ OVS_CHECK_TLS
++OVS_CHECK_ATOMIC_LIBS
+ OVS_CHECK_GCC4_ATOMICS
+ OVS_CHECK_ATOMIC_ALWAYS_LOCK_FREE(1)
+ OVS_CHECK_ATOMIC_ALWAYS_LOCK_FREE(2)
+diff --git a/m4/openvswitch.m4 b/m4/openvswitch.m4
+index 7c37985..55c48ec 100644
+--- a/m4/openvswitch.m4
++++ b/m4/openvswitch.m4
+@@ -432,6 +432,12 @@ static thread_local int var;], [return var;])],
+      fi
+    fi])
+ 
++dnl OVS_CHECK_ATOMIC_LIBS
++dnl
++dnl Check to see if -latomic is need for GCC atomic built-ins.
++AC_DEFUN([OVS_CHECK_ATOMIC_LIBS],
++   [AC_SEARCH_LIBS([__atomic_load_8], [atomic])])
++
+ dnl OVS_CHECK_GCC4_ATOMICS
+ dnl
+ dnl Checks whether the compiler and linker support GCC 4.0+ atomic built-ins.

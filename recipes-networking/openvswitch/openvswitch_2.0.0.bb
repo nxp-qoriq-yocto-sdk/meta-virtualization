@@ -32,6 +32,7 @@ SRC_URI = "http://openvswitch.org/releases/openvswitch-${PV}.tar.gz \
 	file://openvswitch-add-target-perl-handling.patch \
 	file://openvswitch-add-more-target-python-substitutions.patch \
 	file://openvswitch-add-ptest.patch \
+	file://Add-check-for-latomic.patch \
 	file://run-ptest \
 	"
 
