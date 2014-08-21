@@ -25,6 +25,7 @@ RCONFLICTS_${PN}_libvirtd = "connman"
 
 SRC_URI = "http://libvirt.org/sources/libvirt-${PV}.tar.gz;name=libvirt \
            file://tools-add-libvirt-net-rpc-to-virt-host-validate-when.patch \
+           file://fix-qemu-command-${PV}.patch \
            file://libvirtd.sh \
            file://libvirtd.conf \
            file://runptest.patch \
