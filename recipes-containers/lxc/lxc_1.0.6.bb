@@ -3,7 +3,6 @@ SECTION = "console/utils"
 LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://COPYING;md5=4fbd65380cdd255951079008b364516c"
 PRIORITY = "optional"
-PR = "r4"
 DEPENDS = "libxml2 libcap"
 RDEPENDS_${PN} = " \
 		rsync \
@@ -24,14 +23,11 @@ RDEPENDS_${PN}-ptest += "file make"
 
 SRC_URI = "http://linuxcontainers.org/downloads/${BPN}-${PV}.tar.gz \
 	file://lxc-1.0.0-disable-udhcp-from-busybox-template.patch \
-	file://config_network_type-set-macvlan-default-mode-to-priv.patch \
-	file://lxc-busybox-follow-symlinks-when-inspecting-busybox-.patch \
-	file://network.c-Add-missing-LXC_NET_NONE-option-refactor.patch \
 	file://runtest.patch \
 	file://run-ptest \
 	"
-SRC_URI[md5sum] = "87a9d168a6e55326303cce3b2cb7f82e"
-SRC_URI[sha256sum] = "0992212ddaad01dfe8c048e130566b73dd5f34191585f36bdac07a4f8a91f3bd"
+SRC_URI[md5sum] = "4aad3aee84b42faa194e44091d723a3b"
+SRC_URI[sha256sum] = "fc6bffa750f00daaa92aa33d719c1cc235146aa779ebd2a64a0c24423977cf14"
 
 S = "${WORKDIR}/${BPN}-${PV}"
 
@@ -40,8 +36,7 @@ S = "${WORKDIR}/${BPN}-${PV}"
 PTEST_CONF = "${@base_contains('DISTRO_FEATURES', 'ptest', '--enable-tests', '', d)}"
 EXTRA_OECONF += "--with-distro=${DISTRO} ${PTEST_CONF}"
 
-PACKAGECONFIG ??= ""
-PACKAGECONFIG[doc] = "--enable-doc,--disable-doc,,"
+PACKAGECONFIG[doc] = "--enable-doc --enable-api-docs,--disable-doc --disable-api-docs,,"
 PACKAGECONFIG[rpath] = "--enable-rpath,--disable-rpath,,"
 PACKAGECONFIG[apparmour] = "--enable-apparmor,--disable-apparmor,apparmor,apparmor"
 
@@ -61,7 +56,6 @@ do_install_append() {
 	install -d ${D}${sysconfdir}/default/volatiles
 	echo "d root root 0755 ${localstatedir}/cache/lxc none" \
 	     > ${D}${sysconfdir}/default/volatiles/99_lxc
-
 }
 
 EXTRA_OEMAKE += "TEST_DIR=${D}${PTEST_PATH}/src/tests"
@@ -75,4 +69,3 @@ pkg_postinst_${PN}() {
 		/etc/init.d/populate-volatile.sh update
 	fi
 }
-
