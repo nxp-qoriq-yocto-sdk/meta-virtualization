@@ -48,6 +48,8 @@ PACKAGECONFIG[doc] = "--enable-doc --enable-api-docs,--disable-doc --disable-api
 PACKAGECONFIG[rpath] = "--enable-rpath,--disable-rpath,,"
 PACKAGECONFIG[apparmour] = "--enable-apparmor,--disable-apparmor,apparmor,apparmor"
 PACKAGECONFIG[templates] = ",,, ${PN}-templates"
+PACKAGECONFIG[seccomp] ="--enable-seccomp,--disable-seccomp,libseccomp,libseccomp"
+
 
 inherit autotools pkgconfig ptest
 
