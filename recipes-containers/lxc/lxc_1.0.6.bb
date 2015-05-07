@@ -32,6 +32,8 @@ SRC_URI = "http://linuxcontainers.org/downloads/${BPN}-${PV}.tar.gz \
 	file://document-lxc.rebootsignal.patch \
 	file://lxc-busybox-use-lxc.rebootsignal-SIGTERM.patch \
 	file://ppc-add-seccomp-support-for-lxc.patch \
+	file://lxc-busybox-add-OpenSSH-support.patch \
+	file://lxc-busybox-make-some-OpenSSH-tools-optional.patch \
 	"
 
 SRC_URI[md5sum] = "4aad3aee84b42faa194e44091d723a3b"
